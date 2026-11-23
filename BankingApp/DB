@@ -1,0 +1,26 @@
+CREATE DATABASE IF NOT EXISTS DatabaseConnection;
+USE DatabaseConnection;
+
+CREATE TABLE users (
+    mobile_number VARCHAR(20) PRIMARY KEY,
+    pin VARCHAR(10) NOT NULL,
+    full_name VARCHAR(100) NOT NULL,
+    balance DECIMAL(15, 2) DEFAULT 0.00
+);
+
+CREATE TABLE transactions (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    mobile_number VARCHAR(20),
+    transaction_type VARCHAR(50),
+    amount DECIMAL(15, 2),
+    details VARCHAR(255),
+    transaction_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (mobile_number) REFERENCES users(mobile_number)
+);
+
+-- Insert sample user for testing
+INSERT INTO users (mobile_number, pin, full_name, balance) 
+VALUES ('09171234567', '1234', 'Juan Dela Cruz', 1000.00),
+       ('09187654321', '4321', 'Maria Santos', 500.00);
+
+
